@@ -1,0 +1,39 @@
+@{
+var service = TCAdmin.GameHosting.SDK.Objects.Service.GetSelectedService();
+var game = TCAdmin.GameHosting.SDK.Objects.Game.GetSelectedGame();
+var dbman = TCAdmin.SDK.Database.DatabaseManager.CreateDatabaseManager();
+var dt = dbman.Execute(string.Format("select count(*) from tc_game_service_workshop_files where service_id={0} and update_available=1", service.ServiceId));
+var workshopupdates = (System.Int64)dt.Rows[0][0];
+var steamupdate = (game.AppData.HasValue("__TCA:STEAM_API_GAME_VERSION") && service.AppData.HasValue("__TCA:STEAM_API_GAME_VERSION") && game.AppData["__TCA:STEAM_API_GAME_VERSION"].ToString() != service.AppData["__TCA:STEAM_API_GAME_VERSION"].ToString()) || (game.AppData.HasValue("__TCA:STEAM_API_GAME_VERSION") && !service.AppData.HasValue("__TCA:STEAM_API_GAME_VERSION"));
+dbman.Disconnect();
+}
+<script>
+    $(document).ready(function () {
+        @if (workshopupdates > 0) {
+            <text>
+                let steamworkshop = $("#d3b2aa93-7e2b-4e0d-8080-67d14b2fa8a9_23_IconId_21, #d3b2aa93-7e2b-4e0d-8080-67d14b2fa8a9_23_IconId_20, #d3b2aa93-7e2b-4e0d-8080-67d14b2fa8a9_23_IconId_19").last();
+
+        let workshopbadge = $('<span id="workshop-badge">@workshopupdates</span>');
+        steamworkshop.append(workshopbadge);
+
+        $('#workshop-badge').kendoBadge({
+                    themeColor: 'info',
+            shape: 'circle'
+        });
+</text>
+        }
+
+        @if (steamupdate) {
+            <text>
+                let steamupdate = $("#d3b2aa93-7e2b-4e0d-8080-67d14b2fa8a9_23_IconId_6");
+        let steambadge = $('<span id="steam-badge"><span class="k-icon k-i-warning"></span></span>');
+        steamupdate.append(steambadge);
+
+        $('#steam-badge').kendoBadge({
+                    themeColor: 'info',
+            shape: 'circle'
+        });
+</text>
+        }
+    })
+</script>
