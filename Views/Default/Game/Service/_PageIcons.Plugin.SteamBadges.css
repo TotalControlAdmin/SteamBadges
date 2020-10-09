@@ -1,0 +1,18 @@
+#d3b2aa93-7e2b-4e0d-8080-67d14b2fa8a9_23_IconId_6, 
+#d3b2aa93-7e2b-4e0d-8080-67d14b2fa8a9_23_IconId_21,
+#d3b2aa93-7e2b-4e0d-8080-67d14b2fa8a9_23_IconId_20,
+#d3b2aa93-7e2b-4e0d-8080-67d14b2fa8a9_23_IconId_19 {
+    position: relative;
+}
+
+#steam-badge,
+#workshop-badge {
+    line-height: unset !important;
+    position: absolute;
+    bottom: -5px;
+    left: 7px;
+}
+
+#steam-badge > .k-i-warning {
+    margin-left: unset !important;
+}
